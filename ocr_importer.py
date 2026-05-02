@@ -1,3 +1,6 @@
+# SPDX-License-Identifier: Apache-2.0
+# Copyright (c) 2026 Liu Yanwei / 刘彦巍
+
 # ocr_importer.py
 """
 本地化验单图片 OCR 解析。

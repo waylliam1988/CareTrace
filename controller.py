@@ -1,3 +1,6 @@
+# SPDX-License-Identifier: Apache-2.0
+# Copyright (c) 2026 Liu Yanwei / 刘彦巍
+
 """
 业务逻辑控制器 - 统一管理数据流和模型调用
 """

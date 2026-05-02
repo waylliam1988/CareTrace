@@ -1,3 +1,6 @@
+# SPDX-License-Identifier: Apache-2.0
+# Copyright (c) 2026 Liu Yanwei / 刘彦巍
+
 # baseline_monitor.py
 """
 个人基线监测模块 - 检测当前值是否偏离个人历史基线 (V6.0 融合版)

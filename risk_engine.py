@@ -1,3 +1,6 @@
+# SPDX-License-Identifier: Apache-2.0
+# Copyright (c) 2026 Liu Yanwei / 刘彦巍
+
 """
 CareTrace 关照轨迹 - 个人健康档案的趋势观察工具
 

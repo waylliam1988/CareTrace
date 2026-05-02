@@ -1,3 +1,6 @@
+# SPDX-License-Identifier: Apache-2.0
+# Copyright (c) 2026 Liu Yanwei / 刘彦巍
+
 # -*- coding: utf-8 -*-
 # tumor_models.py
 # 包含多种肿瘤生长与耐药的常微分方程（ODE）机理模型

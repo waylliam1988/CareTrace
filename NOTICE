@@ -1,0 +1,22 @@
+CareTrace
+
+Copyright (c) 2026 Liu Yanwei / 刘彦巍
+
+CareTrace was created by Liu Yanwei (刘彦巍), GitHub user @waylliam1988.
+
+Project repository:
+https://github.com/waylliam1988/CareTrace
+
+CareTrace is a local-first bilingual lab trend tracking and medical record
+organization tool for patients, caregivers, clinicians, and researchers.
+It is not a medical diagnosis, treatment, dosing, emergency, or clinical
+decision-making system.
+
+If you use, copy, modify, distribute, or build upon CareTrace, please retain
+this NOTICE file and the above attribution notices in accordance with the
+Apache License, Version 2.0.
+
+This software is provided for informational, organizational, and research
+prototype purposes only. It does not provide medical diagnosis, treatment
+recommendations, medication instructions, emergency medical advice, or a
+substitute for professional oncology care.

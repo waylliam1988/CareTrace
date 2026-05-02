@@ -9,6 +9,10 @@
   <a href="#en"><strong>English</strong></a>
 </p>
 
+**Author / 作者**: Liu Yanwei / 刘彦巍  
+**GitHub**: [waylliam1988/CareTrace](https://github.com/waylliam1988/CareTrace)  
+**License / 开源许可证**: Apache License 2.0, with attribution preserved through `NOTICE`.
+
 <a id="zh"></a>
 
 ## 中文
@@ -96,6 +100,14 @@ streamlit run main.py
 6. 回到“健康报告”查看趋势、个人基线偏离和观察提示。
 7. 数据变化后点击“重新训练模型”。
 8. 在“适应性模拟”中只把模拟结果作为和医生讨论的问题清单。
+
+### 作者、仓库和开源许可证
+
+- 作者：Liu Yanwei / 刘彦巍。
+- GitHub：<https://github.com/waylliam1988/CareTrace>。
+- 许可证：Apache License 2.0。
+- 署名：本项目包含 `NOTICE` 文件。根据 Apache-2.0 的 NOTICE 机制，使用、复制、修改、分发或基于 CareTrace 构建衍生项目时，应保留 `LICENSE`、`NOTICE` 和原作者署名。
+- 医学边界：CareTrace 不是医疗诊断或治疗系统，不提供用药、剂量、停药、急救或临床决策建议。
 
 ### 给医生、医学研究者和深度学习研究者
 
@@ -461,6 +473,14 @@ Run tests:
 python -m unittest discover -s 测试脚本 -p "test_*.py"
 python .\测试脚本\retrospective_validation.py
 ```
+
+### Author, Repository, and License
+
+- Author: Liu Yanwei / 刘彦巍.
+- GitHub: <https://github.com/waylliam1988/CareTrace>.
+- License: Apache License 2.0.
+- Attribution: CareTrace includes a `NOTICE` file. Under the Apache-2.0 NOTICE mechanism, users who use, copy, modify, distribute, or build upon CareTrace should retain the `LICENSE`, `NOTICE`, and original author attribution.
+- Medical boundary: CareTrace is not a medical diagnosis or treatment system. It does not provide medication, dosing, drug-hold, emergency, or clinical decision-making instructions.
 
 ### Privacy
 
