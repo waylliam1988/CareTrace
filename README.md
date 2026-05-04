@@ -9,7 +9,7 @@
   <a href="#en"><strong>English</strong></a>
 </p>
 
-**Author / 作者**: Liu Yanwei / 刘彦巍  
+**Author / 作者**: Liu Yanwei 
 **GitHub**: [waylliam1988/CareTrace](https://github.com/waylliam1988/CareTrace)  
 **License / 开源许可证**: Apache License 2.0, with attribution preserved through `NOTICE`.
 
@@ -476,7 +476,7 @@ python .\测试脚本\retrospective_validation.py
 
 ### Author, Repository, and License
 
-- Author: Liu Yanwei / 刘彦巍.
+- Author: Liu Yanwei.
 - GitHub: <https://github.com/waylliam1988/CareTrace>.
 - License: Apache License 2.0.
 - Attribution: CareTrace includes a `NOTICE` file. Under the Apache-2.0 NOTICE mechanism, users who use, copy, modify, distribute, or build upon CareTrace should retain the `LICENSE`, `NOTICE`, and original author attribution.
