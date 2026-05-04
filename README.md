@@ -103,7 +103,7 @@ streamlit run main.py
 
 ### 作者、仓库和开源许可证
 
-- 作者：Liu Yanwei / 刘彦巍。
+- 作者：Liu Yanwei
 - GitHub：<https://github.com/waylliam1988/CareTrace>。
 - 许可证：Apache License 2.0。
 - 署名：本项目包含 `NOTICE` 文件。根据 Apache-2.0 的 NOTICE 机制，使用、复制、修改、分发或基于 CareTrace 构建衍生项目时，应保留 `LICENSE`、`NOTICE` 和原作者署名。
