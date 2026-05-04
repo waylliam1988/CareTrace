@@ -10,7 +10,7 @@
 </p>
 
 **Author / 作者**: Liu Yanwei  
-**GitHub**: [waylliam1988/CareTrace](https://github.com/waylliam1988/CareTrace)
+**GitHub**: [waylliam1988/CareTrace](https://github.com/waylliam1988/CareTrace)  
 **License / 开源许可证**: Apache License 2.0, with attribution preserved through `NOTICE`.
 
 <a id="zh"></a>
