@@ -15,6 +15,8 @@ LANGUAGE_LABELS = {
 
 LABEL_TO_CODE = {label: code for code, label in LANGUAGE_LABELS.items()}
 DEFAULT_LANGUAGE = "zh"
+LANGUAGE_STATE_KEY = "caretrace_language"
+LANGUAGE_WIDGET_KEY = "caretrace_language_selector"
 
 
 TRANSLATIONS: dict[str, dict[str, str]] = {
@@ -280,13 +282,45 @@ TRANSLATIONS: dict[str, dict[str, str]] = {
         "zh": "填写数值",
         "en": "Value",
     },
+    "indicator_column": {
+        "zh": "指标",
+        "en": "Indicator",
+    },
+    "raw_value_column": {
+        "zh": "数值",
+        "en": "Value",
+    },
+    "reference_range_column": {
+        "zh": "正常范围",
+        "en": "Reference range",
+    },
+    "unit_column": {
+        "zh": "单位",
+        "en": "Unit",
+    },
     "value_help": {
         "zh": "填写后自动保存，可切换模板继续填写",
         "en": "Values are staged automatically; you can switch templates and continue.",
     },
+    "template_switch_hint": {
+        "zh": "💡 提示：可切换多个模板分次填写",
+        "en": "💡 Tip: You can switch between templates and enter values in multiple passes.",
+    },
+    "filled_count": {
+        "zh": "✅ 已填写 {count} 个指标",
+        "en": "✅ {count} indicators entered",
+    },
+    "filled_preview": {
+        "zh": "📋 查看已填写内容",
+        "en": "📋 Review entered values",
+    },
     "save_report": {
         "zh": "💾 保存化验单",
         "en": "💾 Save Lab Report",
+    },
+    "need_one_indicator": {
+        "zh": "⚠️ 请先填写至少一个指标数据",
+        "en": "⚠️ Please enter at least one indicator first.",
     },
     "save_success_count": {
         "zh": "✅ 成功保存 {count} 个指标!",
@@ -464,27 +498,41 @@ DEVIATION_TRANSLATIONS = {
 
 
 def init_language() -> str:
-    if "language" not in st.session_state:
-        st.session_state.language = DEFAULT_LANGUAGE
-    return st.session_state.language
+    widget_value = st.session_state.get(LANGUAGE_WIDGET_KEY)
+    if widget_value in LABEL_TO_CODE:
+        st.session_state[LANGUAGE_STATE_KEY] = LABEL_TO_CODE[widget_value]
+    elif LANGUAGE_STATE_KEY not in st.session_state:
+        legacy_language = st.session_state.get("language")
+        st.session_state[LANGUAGE_STATE_KEY] = (
+            legacy_language if legacy_language in LANGUAGE_LABELS else DEFAULT_LANGUAGE
+        )
+    return st.session_state[LANGUAGE_STATE_KEY]
 
 
 def get_language() -> str:
-    return st.session_state.get("language", DEFAULT_LANGUAGE)
+    return st.session_state.get(LANGUAGE_STATE_KEY, DEFAULT_LANGUAGE)
+
+
+def _sync_language_from_widget() -> None:
+    selected_label = st.session_state.get(LANGUAGE_WIDGET_KEY)
+    st.session_state[LANGUAGE_STATE_KEY] = LABEL_TO_CODE.get(selected_label, DEFAULT_LANGUAGE)
 
 
 def language_selector() -> str:
     current = init_language()
     labels = list(LABEL_TO_CODE.keys())
     current_label = LANGUAGE_LABELS.get(current, LANGUAGE_LABELS[DEFAULT_LANGUAGE])
+    if LANGUAGE_WIDGET_KEY not in st.session_state:
+        st.session_state[LANGUAGE_WIDGET_KEY] = current_label
     selected_label = st.sidebar.selectbox(
         TRANSLATIONS["language_label"].get(current, TRANSLATIONS["language_label"]["zh"]),
         labels,
         index=labels.index(current_label),
-        key="caretrace_language_selector",
+        key=LANGUAGE_WIDGET_KEY,
+        on_change=_sync_language_from_widget,
     )
-    st.session_state.language = LABEL_TO_CODE[selected_label]
-    return st.session_state.language
+    st.session_state[LANGUAGE_STATE_KEY] = LABEL_TO_CODE.get(selected_label, DEFAULT_LANGUAGE)
+    return st.session_state[LANGUAGE_STATE_KEY]
 
 
 def t(key: str, **kwargs) -> str:

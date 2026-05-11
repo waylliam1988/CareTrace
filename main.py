@@ -1953,6 +1953,7 @@ if selected_patient_name != select_patient_placeholder:
                         ocr_phase = st.radio(
                             language_support.t("health_phase"),
                             options=["稳定监控期", "强效治疗期"],
+                            format_func=language_support.phase_label,
                             horizontal=True,
                             index=0,
                             key=f"ocr_phase_{idx}",
@@ -2028,8 +2029,8 @@ if selected_patient_name != select_patient_placeholder:
                 st.warning("当前环境未检测到 `opencv-python` 和 `rapidocr-onnxruntime`，无法启用本地图片识别。")
         
         if st.session_state.staged_items:
-            st.success(f"✅ 已填写 {len(st.session_state.staged_items)} 个指标")
-            with st.expander("📋 查看已填写内容", expanded=False):
+            st.success(language_support.t("filled_count", count=len(st.session_state.staged_items)))
+            with st.expander(language_support.t("filled_preview"), expanded=False):
                 preview_data = []
                 for name, data in st.session_state.staged_items.items():
                     preview_data.append({
@@ -2037,7 +2038,12 @@ if selected_patient_name != select_patient_placeholder:
                         "数值": data["检测值"],
                         "单位": data.get("单位", ""),
                     })
-                st.dataframe(pd.DataFrame(preview_data), hide_index=True, width='stretch')
+                preview_df = pd.DataFrame(preview_data).rename(columns={
+                    "指标": language_support.t("indicator_column"),
+                    "数值": language_support.t("raw_value_column"),
+                    "单位": language_support.t("unit_column"),
+                })
+                st.dataframe(preview_df, hide_index=True, width='stretch')
         else:
             st.info(language_support.t("manual_entry_hint"))
         
@@ -2053,6 +2059,7 @@ if selected_patient_name != select_patient_placeholder:
             phase = st.radio(
                 language_support.t("phase_context"),
                 options=["稳定监控期", "强效治疗期"],
+                format_func=language_support.phase_label,
                 horizontal=True,
                 index=0, # 默认选“稳定监控期”
                 key="phase_tag_radio", # key 可以随意
@@ -2093,15 +2100,15 @@ if selected_patient_name != select_patient_placeholder:
             edited_df = st.data_editor(
                 pd.DataFrame(items_for_editor),
                 column_config={
-                    "指标": st.column_config.TextColumn(disabled=True, width="medium"),
+                    "指标": st.column_config.TextColumn(language_support.t("indicator_column"), disabled=True, width="medium"),
                     "数值": st.column_config.NumberColumn(
                         language_support.t("value_column"), 
                         required=False, 
                         width="small",
                         help=language_support.t("value_help")
                     ),
-                    "正常范围": st.column_config.TextColumn(disabled=True, width="medium"),
-                    "单位": st.column_config.TextColumn(disabled=True, width="small"),
+                    "正常范围": st.column_config.TextColumn(language_support.t("reference_range_column"), disabled=True, width="medium"),
+                    "单位": st.column_config.TextColumn(language_support.t("unit_column"), disabled=True, width="small"),
                 },
                 hide_index=True,
                 width='stretch',
@@ -2190,7 +2197,7 @@ if selected_patient_name != select_patient_placeholder:
                             st.error(f"❌ 保存失败: {str(e)}")
                 else:
                     logger.warning("用户点击保存，但 'staged_items' 为空。")
-                    st.warning("⚠️ 请先填写至少一个指标数据")
+                    st.warning(language_support.t("need_one_indicator"))
 
         with col2:
             if st.button(language_support.t("clear_form"), width='stretch'):
@@ -2202,7 +2209,7 @@ if selected_patient_name != select_patient_placeholder:
                 st.rerun()
 
         with col3:
-            st.caption("💡 提示:可切换多个模板分次填写")
+            st.caption(language_support.t("template_switch_hint"))
 
   
         if 'pending_save' in st.session_state and st.session_state.pending_save:
@@ -2369,7 +2376,8 @@ if selected_patient_name != select_patient_placeholder:
                         # 仅当标签存在且映射成功时，才显示中文标签
                         label_display = f" | 🏷️ {label_str_display}" if label_str_display else ""
 
-                        with st.expander(f"📅 {row_data.name.strftime('%Y年%m月%d日')} - {row_data['phase']}{label_display}"):
+                        phase_display = language_support.phase_label(row_data['phase'])
+                        with st.expander(f"📅 {row_data.name.strftime('%Y年%m月%d日')} - {phase_display}{label_display}"):
                             display_data = row_data.drop(['report_uuid', 'phase', 'user_label'], errors='ignore').dropna().to_frame('数值')
                             st.dataframe(display_data, width='stretch')
                             
@@ -2429,9 +2437,10 @@ if selected_patient_name != select_patient_placeholder:
                 with col2:
                     phase_idx = 0 if st.session_state.editing_phase == "稳定监控期" else 1
                     new_phase = st.selectbox(
-                        "健康阶段", 
+                        language_support.t("phase_context"), 
                         ["稳定监控期", "强效治疗期"], 
                         index=phase_idx,
+                        format_func=language_support.phase_label,
                         key="edit_phase_selector"
                     )
                 
